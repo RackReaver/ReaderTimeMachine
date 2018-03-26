@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% for book in search['items'] %}
+    <div class="">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-4 col-lg-3 col-xl-2">
+        <a href="{{ book['volumeInfo']['infoLink']}}"><img src="{{ book['volumeInfo']['imageLinks']['thumbnail'] }}" alt="book-cover"></a>
+        </div>
+        <div class="col-xs-12 col-sm-8 col-lg-9 col-xl-10">
+          <h5 class=""><a href="{{ book['volumeInfo']['infoLink']}}">{{ book['volumeInfo']['title'] }}</a></h5>
+          <p class="">{{ book['volumeInfo']['description'] }}</p>
+          <p><strong>Authors:</strong>
+            {% for author in book['volumeInfo']['authors'] %}
+              {% if loop.last %}
+                {{ author }}
+              {% else %}
+                {{ author }},
+              {% endif %}
+            {% endfor %}</p>
+          <p class=""><strong>Page Count: </strong>{{ book['volumeInfo']['pageCount'] }}</p>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-3">
+        <a href="#" class="card-link">Card link</a>
+        <a href="#" class="card-link">Another link</a>
+      </div>
+    </div>
+    <hr>
+{% endfor %}
+{% endblock body %}
