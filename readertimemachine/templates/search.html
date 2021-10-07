@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block body %}
+    {% for book in search['items'] %}
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-sm-4 col-lg-3 col-xl-2">
+        <a href="{{ book['volumeInfo']['infoLink']}}"><img src="
+        {% if book['volumeInfo']['imageLinks'] is defined %}
+        {{ book['volumeInfo']['imageLinks']['thumbnail']}}
+        {% else %}
+        http://via.placeholder.com/130x200
+        {% endif %}
+        " alt="book-cover"></a>
+        <div class="row col">
+          <button type="button" style="width:130px" name="button">Add to Queue</button>
+        </div>
+        </div>
+
+
+        <div class="col-xs-12 col-sm-8 col-lg-9 col-xl-10">
+          <h5 class=""><a href="{{ book['volumeInfo']['infoLink']}}">{{ book['volumeInfo']['title'] }}</a></h5>
+          <p class="">{{ book['volumeInfo']['description'] }}</p>
+          <p><strong>Authors:</strong>
+            {% for author in book['volumeInfo']['authors'] %}
+              {% if loop.last %}
+                {{ author }}
+              {% else %}
+                {{ author }},
+              {% endif %}
+            {% endfor %}</p>
+          <p class=""><strong>Page Count: </strong>{{ book['volumeInfo']['pageCount'] }}</p>
+        </div>
+    </div>
+    <hr>
+{% endfor %}
+
+{% endblock body %}
